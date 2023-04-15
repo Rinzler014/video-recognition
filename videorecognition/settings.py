@@ -37,7 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    'videoprocessing'
 ]
+
+AUTH_USER_MODEL = 'videoprocessing.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

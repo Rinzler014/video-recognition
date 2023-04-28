@@ -1,6 +1,7 @@
 {% extends "layouts/header.html"%}
 
 {% load crispy_forms_filters %}
+{% load bootstrap_icons %}
 
 {% block content %}
 
@@ -19,19 +20,64 @@
 
 </head>
 <body>
-
-    <div class="container">
-        <div class="video-container">
-            <video id="video" controls>
-                <source src="{{ video_url }}" type="video/mp4">
-            </video>
+    <div class="container2"width="700" height="315">
+        <div class="row">
+            <div class="col">
+                <input type="text" id="fname" name="fname" value="Video URL">
+            </div>
+            <div class="col">
+                <button type="button" class="btn btn-info">{% bs_icon 'search' color='white'%}</button>
+            </div>
         </div>
+    <div class="container"width="700" height="315">
         <div class="video-info">
             <h1>{{ video_name }}</h1>
-            <h2>{{ video_description }}</h2>
-            <h3>{{ video_date }}</h3>
         </div>
+        <div class="video-container" width="700" height="315">
+            <video id="video" controls>
+                {% comment %} <source src="{{ video_url }}" type="video/mp4"> {% endcomment %}
+                
+                <iframe width="700" height="315" src="{{video_v}}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe> 
+                
+            </video>
+        </div>
+        <div class="row">
+            <div class="col">
+                <button type="button" class="btn btn-info">{% bs_icon 'play-fill' color='white'%}</button>
+            </div>
+            <div class="col">
+                <div type="label" class="btn btn-info"><p color='white'>frames per second</p></div>
+            </div>
+            <div class="col">
+                <select name="language" id="language">
+                    <option value="two">29</option>
+                    <option value="three">3</option>
+                    <option value="five" disabled>5</option>
+                    <option value="seven" selected>7</option>
+                </select>
+            </div>
+        </div>
+        <div class="row" padding='10px'>
+            
+            <div class="col">
+                <br>
+            </div>
+        </div>
+        <div class="row" padding='10px'>
+            <br><br><br>
+            <div class="col">
+                <button type="button" class="btn btn-info">{% bs_icon 'skip-backward-fill' color='white'%}</button>
+            </div>
+            <div class="col">
+                <button type="button" class="btn btn-info">{% bs_icon 'skip-forward-fill' color='white'%}</button>
+            </div>
+            <div class="col">
+                <button type="button" class="btn btn-danger">{% bs_icon 'arrow-counterclockwise' %}</button>
+            </div>
+        </div>
+        
     </div>
+    
 
     <script src="{% static 'scripts/player.js' %}"></script>
     

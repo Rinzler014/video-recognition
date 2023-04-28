@@ -38,7 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
-    'videoprocessing'
+    'videoprocessing',
+    
+    'jquery',
+    'crispy_forms',
+    'crispy_bootstrap5',
+
 ]
 
 AUTH_USER_MODEL = 'videoprocessing.User'

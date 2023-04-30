@@ -23,60 +23,74 @@
     <div class="container2"width="700" height="315">
         <div class="row">
             <div class="col">
-                <input type="text" id="fname" name="fname" value="Video URL">
-            </div>
-            <div class="col">
-                <button type="button" class="btn btn-info">{% bs_icon 'search' color='white'%}</button>
+                <form method="POST" class="url-form" >
+
+                    {% csrf_token %}
+                    <select name="url" class="form-select" id="url-video">
+                        <option value="">Video 1</option>
+                        <option value="">Video 2</option>
+                        <option value="">Video 3</option>
+                        <option value="">Video 4</option>
+                    </select>
+
+                    <button type="submit" class="btn btn-primary btn-apply-url">{% bs_icon 'check' color='white'%}</button>
+                </form>
             </div>
         </div>
-    <div class="container"width="700" height="315">
+
+    </div>
+    <div class="container" width="700" height="315">
         <div class="video-info">
             <h1>{{ video_name }}</h1>
         </div>
         <div class="video-container" width="700" height="315">
-            <video id="video" controls>
-                {% comment %} <source src="{{ video_url }}" type="video/mp4"> {% endcomment %}
-                
-                <iframe width="700" height="315" src="{{video_v}}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe> 
-                
-            </video>
+            <div class = "video-layout" id="video" onclick="clickPosition()">
+                <video id="video-source" src="{% static 'media/video.mp4' %}">
+                </video>
+            </div>
         </div>
         <div class="row">
             <div class="col">
-                <button type="button" class="btn btn-info">{% bs_icon 'play-fill' color='white'%}</button>
+                <button type="button" class="btn btn-primary _button" onclick="playPause()">{% bs_icon 'play-fill' color='white'%}</button>
             </div>
             <div class="col">
-                <div type="label" class="btn btn-info"><p color='white'>frames per second</p></div>
+                <p color='white' class="fps-message">Frames Per Second (FPS)</p>
             </div>
             <div class="col">
-                <select name="language" id="language">
-                    <option value="two">29</option>
-                    <option value="three">3</option>
-                    <option value="five" disabled>5</option>
-                    <option value="seven" selected>7</option>
-                </select>
-            </div>
-        </div>
-        <div class="row" padding='10px'>
-            
-            <div class="col">
-                <br>
-            </div>
-        </div>
-        <div class="row" padding='10px'>
-            <br><br><br>
-            <div class="col">
-                <button type="button" class="btn btn-info">{% bs_icon 'skip-backward-fill' color='white'%}</button>
-            </div>
-            <div class="col">
-                <button type="button" class="btn btn-info">{% bs_icon 'skip-forward-fill' color='white'%}</button>
-            </div>
-            <div class="col">
-                <button type="button" class="btn btn-danger">{% bs_icon 'arrow-counterclockwise' %}</button>
+                <form method="POST" id = "fps-dropdown-form">
+
+                    {% csrf_token %}
+
+                    <select name="language" class="form-select" id="fps_dropdown">
+                        <option value="two">30</option>
+                        <option value="three">60</option>
+                        <option value="five">120</option>
+                        <option value="seven">144</option>
+                    </select>
+
+                    <button type="submit" class="btn btn-primary btn-apply-fps"> Apply </button>
+                </form>
             </div>
         </div>
         
+        <div class="row" padding='10px'>
+            <br><br><br>
+            <div class="col">
+                <button type="button" class="btn btn-primary _button">{% bs_icon 'skip-backward-fill' color='white'%}</button>
+            </div>
+            <div class="col">
+                <button type="button" class="btn btn-primary _button">{% bs_icon 'skip-forward-fill' color='white'%}</button>
+            </div>
+            <div class="col">
+                <button type="button" class="btn btn-danger _button" onclick="stop()" >{% bs_icon 'arrow-counterclockwise' %}</button>
+            </div>
+        </div>
+
+        <p id="coordinates">X: 0 , Y: 0 </p>
+        
     </div>
+
+
     
 
     <script src="{% static 'scripts/player.js' %}"></script>

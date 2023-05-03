@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.http import HttpResponse
+import csv
 
 # Create your views here.
 
@@ -17,3 +19,17 @@ def index(request):
     }
     
     return render(request, "Player/player.html", context)
+
+def get_coordinates(request):
+    
+    file = open('videoprocessing/data/coordinates.csv', 'a+')  
+    
+    coordinatesX = request.GET.get('coorX', None)
+    coordinatesY = request.GET.get('coorY', None)
+    
+    #Append content to file
+    file.write(coordinatesX + "," + coordinatesY + "\n")
+    
+    print(coordinatesX + " " + coordinatesY)
+    
+    return HttpResponse(status = 200)

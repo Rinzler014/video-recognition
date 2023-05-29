@@ -7,14 +7,21 @@ const video = VideoFrame({
         currentFrame.html(frame);
     }
 });
+const video_name = document.getElementById("video-source");
+video_name.addEventListener("click", clickPosition);
 
 
-function clickPosition(event, video_name) {
-    event = event || window.event;
+function clickPosition(event) {
 
-    var x = event.clientX;
-    var y = event.clientY;
-    
+    var size = video_name.getBoundingClientRect();
+
+    var scaleX = this.videoWidth / size.width; // Video Width divided by element width
+    var scaleY = this.videoHeight / size.height; // Video Height divided by element height
+
+    var rect = this.getBoundingClientRect();  // Dimensions of element
+    var x = ((event.clientX - rect.left) * scaleX)|0; // Dimensions of click event * scale
+    var y = ((event.clientY - rect.top ) * scaleY)|0; // Dimensions of click event * scale
+
     document.getElementById("coordinates").innerHTML = `X: ${x} , Y: ${y} `
 
     console.log(x, y, video_name)
@@ -39,6 +46,7 @@ function clickPosition(event, video_name) {
     })
 
 }
+
 
 function playPause() {
     

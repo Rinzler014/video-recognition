@@ -26,10 +26,10 @@ def get_coordinates(request):
     
     coordinatesX = request.GET.get('coorX', None)
     coordinatesY = request.GET.get('coorY', None)
+    currentFrame = request.GET.get('frame', None)
+
+    file.write(coordinatesX + "," + coordinatesY + "," + currentFrame + "\n")
     
-    #Append content to file
-    file.write(coordinatesX + "," + coordinatesY + "\n")
-    
-    print(coordinatesX + " " + coordinatesY)
+    print(coordinatesX + " " + coordinatesY + " " + currentFrame)
     
     return HttpResponse(status = 200)

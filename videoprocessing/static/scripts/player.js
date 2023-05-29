@@ -1,5 +1,15 @@
 
-function clickPosition(event) {
+const currentFrame = $('#currentFrame');
+const video = VideoFrame({
+    id : 'video-source',
+    frameRate: 25.00,
+    callback : function(frame) {
+        currentFrame.html(frame);
+    }
+});
+
+
+function clickPosition(event, video_name) {
     event = event || window.event;
 
     var x = event.clientX;
@@ -7,7 +17,7 @@ function clickPosition(event) {
     
     document.getElementById("coordinates").innerHTML = `X: ${x} , Y: ${y} `
 
-    console.log(x, y)
+    console.log(x, y, video_name)
     
     $.ajax({
 
@@ -16,13 +26,14 @@ function clickPosition(event) {
         async: false,
         data: {
             "coorX": x,
-            "coorY": y 
+            "coorY": y,
+            "frame": currentFrame.html()
         },
         success: function (data) {
-            alert("Datos enviados");
+            console.log("Datos enviados");
         },
         failure: function (data) {
-            alert("Error");
+            alert("Failed to send data to server");
         }
 
     })
@@ -30,16 +41,21 @@ function clickPosition(event) {
 }
 
 function playPause() {
-    var video = document.getElementById("video-source");
-    if (video.paused) {
-        video.play();
+    
+    if (video.video.paused) {
+        video.video.play();
+        video.listen('frame');
     } else {
-        video.pause();
+        video.video.pause();
     }
 }
 
 function stop() {
-    var video = document.getElementById("video-source");
-    video.pause();
-    video.currentTime = 0;
+    
+    video.video.pause();
+    video.stopListen();
+    video.video.currentTime = 0;
+    currentFrame.html(0);
+
 }
+

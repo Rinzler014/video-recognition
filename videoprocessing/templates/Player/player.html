@@ -16,6 +16,11 @@
 
     <link rel="stylesheet" href="{% static 'styles/player.css' %}">
 
+    <script src="https://rawgit.com/allensarkisyan/VideoFrame/master/VideoFrame.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/mediainfo.js/dist/mediainfo.min.js"></script>
+
+
     <title>Reproductor</title>
 
 </head>
@@ -44,6 +49,7 @@
             <h1>{{ video_name }}</h1>
         </div>
         <div class="video-container" width="700" height="315">
+            <span>Current Frame:  <span id="currentFrame">0</span></span> 
             <div class = "video-layout" id="video" onclick="clickPosition()">
                 <video id="video-source" src="{% static 'media/video.mp4' %}">
                 </video>
@@ -62,10 +68,10 @@
                     {% csrf_token %}
 
                     <select name="language" class="form-select" id="fps_dropdown">
-                        <option value="two">30</option>
-                        <option value="three">60</option>
-                        <option value="five">120</option>
-                        <option value="seven">144</option>
+                        <option value="30">30</option>
+                        <option value="60">60</option>
+                        <option value="120">120</option>
+                        <option value="144">144</option>
                     </select>
 
                     <button type="submit" class="btn btn-primary btn-apply-fps"> Apply </button>

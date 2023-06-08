@@ -24,12 +24,14 @@ def get_coordinates(request):
     
     file = open('videoprocessing/data/coordinates.csv', 'a+')  
     
-    coordinatesX = request.GET.get('coorX', None)
-    coordinatesY = request.GET.get('coorY', None)
+    coordinatesX1 = request.GET.get('coorX1', None)
+    coordinatesY1 = request.GET.get('coorY1', None)
+    coordinatesX2 = request.GET.get('coorX2', None)
+    coordinatesY2 = request.GET.get('coorY2', None)
     currentFrame = request.GET.get('frame', None)
 
-    file.write(coordinatesX + "," + coordinatesY + "," + currentFrame + "\n")
+    file.write(coordinatesX1 + "," + coordinatesY1 + "," + coordinatesX2 + "," + coordinatesY2 + "," +currentFrame + "\n")
     
-    print(coordinatesX + " " + coordinatesY + " " + currentFrame)
+    print(coordinatesX1 + " " + coordinatesY1 + " " + coordinatesX2 + " " + coordinatesY2 + " " + currentFrame)
     
     return HttpResponse(status = 200)

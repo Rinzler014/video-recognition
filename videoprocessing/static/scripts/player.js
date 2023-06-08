@@ -10,6 +10,7 @@ const video = VideoFrame({
 const video_name = document.getElementById("video-source");
 video_name.addEventListener("click", clickPosition);
 var coordArr = [];
+var frameArr = []
 function clickPosition(event) {
     
     var size = video_name.getBoundingClientRect();
@@ -23,11 +24,14 @@ function clickPosition(event) {
 
     document.getElementById("coordinates").innerHTML = `X: ${x} , Y: ${y} `
     coordArr.push(x,y)
+    frameArr.push(currentFrame.html())
     console.log(x, y, video_name)
     console.log(coordArr.length,coordArr)
+    console.log(frameArr)
     
     
     if (coordArr.length == 4){
+        if (frameArr[0] == frameArr[1]){
         $.ajax({
 
             type: "GET",
@@ -41,7 +45,7 @@ function clickPosition(event) {
                 "frame": currentFrame.html()
             },
             success: function (data) {
-                console.log("Datos enviados");
+                console.log("Data send");
             },
             failure: function (data) {
                 alert("Failed to send data to server");
@@ -49,6 +53,14 @@ function clickPosition(event) {
 
         })
         coordArr = []
+        frameArr = []
+        }
+        else{
+            console.log("Data not send, clicks in different frames");
+        }
+        
+        coordArr = []
+        frameArr = []
     }
 
 }
